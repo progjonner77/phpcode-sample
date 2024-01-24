@@ -1,0 +1,23 @@
+<?php
+include '../init.php';
+extract($_POST);
+
+$error= '';
+$success = '';
+
+
+$sql = "UPDATE admin SET  name = '" . $user . "', email = '" . $email . "', cr = '" . $cr . "' WHERE id = '".$_SESSION['Account_id']."';";
+
+if (!mysqli_query($conn, $sql)) {
+    // echo 'Error: ' . mysqli_error($conn);
+    $error = 'DB Error';
+}else{
+    $success = 1;
+}
+
+
+$details = [
+    'output1'             =>  $success,
+    'error'               =>  $error
+];
+echo json_encode($details);
